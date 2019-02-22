@@ -12,3 +12,6 @@
 ======= Device 0 =======
 1115fb8d1de30305|SM_N920C|3
 
+======= Device 1 =======
+qweqdqw|SM_N920C|2
+
