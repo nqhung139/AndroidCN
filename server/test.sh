@@ -2,11 +2,12 @@
 
 . cache.h
 . func.h
+while [ 1 == 1 ] 
+do
+    getVersionAdb
+    getIPAddress
+    getListDevices
 
-VERSION=$(version)
-# SERVER_IP=$(serverIP)
-# ADB_PORT=$(adbPort)
-
-# OUTPUT=$(adb version)
-
-getVersionAdb
+    sleep 3
+    echo 'puck'
+done

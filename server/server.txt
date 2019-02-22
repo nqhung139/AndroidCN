@@ -1,4 +1,17 @@
-// Version
+
+// adb version
 1.0.40
-// Build
+
+// adb build
 4986621
+
+// IP
+10.0.4.237
+
+// serial number|model|transport_id
+======= Device 0 =======
+1115fb8d1de30305|SM_N920C|4
+
+======= Device 1 =======
+10.0.5.91|SM_N920C|5
+
