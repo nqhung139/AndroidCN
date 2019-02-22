@@ -145,8 +145,28 @@ connectToDevice () {
     read transportId
     serialNumber=$(getSerialFromTransID $transportId)
 
-    forwardADBPort
-    // forwardScrcpyPort &
+    killallProgressInBackground
+    sleep 1
+    forwardADBPort &
+    sleep 1
+    forwardScrcpyPort &
+    echo $serialNumber
+    sleep 1
+    scrcpy -s $serialNumber --port 27183
+}
+
+killallProgressInBackground () {
+    puck=$(ps -eaf | grep "Vu Hoang Ha")
+    IFS=$'\n'
+    for i in ${puck[@]}
+    do
+        IFS=' '
+        puck2=($i)
+        kill ${puck2[1]}
+        echo "killed ${puck2[1]}"
+        echo "-----"
+        sleep 1
+    done
 }
 
 getSerialFromTransID() {
@@ -190,14 +210,12 @@ forwardADBPort () {
         nextValue=${arrLine[$(expr $key + 1)]}
         if [ $value == "// IP" ]
         then
-            sshpass -pAbc123456 ssh -CN -L5037:localhost:5037 -R27183:localhost:27183 "Vu Hoang Ha"@$nextValue
-            echo "pasword connect to server \"Vu Hoang Ha\" is wrong!!"
+            sshpass -pAbc123456 ssh -CN -L5037:localhost:5037 "Vu Hoang Ha"@$nextValue
         fi
     done
 }
 
 forwardScrcpyPort (){
-    echo "dech"
     portStatus=$(checkPortUsed 27183)
     if [ "$portStatus" == "running" ]
     then
@@ -216,7 +234,6 @@ forwardScrcpyPort (){
         if [ $value == "// IP" ]
         then
             sshpass -pAbc123456 ssh -CN -R27183:localhost:27183 "Vu Hoang Ha"@$nextValue
-            echo "pasword connect to server \"Vu Hoang Ha\" is wrong!!"
         fi
     done
 }
