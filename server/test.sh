@@ -1,6 +1,5 @@
 #!/bin/bash
 
-. cache.h
 . func.h
 while [ 1 == 1 ] 
 do
