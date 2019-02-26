@@ -71,6 +71,7 @@ printDeviceInfo () {
         if [ $key == 0 ]
         then
             deviceInfo+=$value
+            printPortUsed $value
         fi
         if [ $value == "model" ]
         then 
@@ -84,13 +85,46 @@ printDeviceInfo () {
     echo -e "$deviceInfo\n" >> server.txt
 }
 
-test() {
-    for LINE in ${ARR[@]}
+getPortOpenForDebug () {
+    portStatus=$(checkPortUsed 27)
+
+}
+
+printPortUsed () {
+    listPort=$(cat "listPort.txt")
+    IFS=$'\n'
+    arrLinePortInfo=($listPort)
+    inited=0
+    length=${#arrLinePortInfo[@]}
+    for key in ${!arrLinePortInfo[@]}
     do
-        for i in ${LINE[@]}
-        do
-            echo $i
-            echo '-------'
-        done
+        IFS=$'\n'
+        if [ $key != 0 ]
+        then
+            portInfo=${arrLinePortInfo[$key]}
+            IFS='|'
+            arrPortInfo=($portInfo)
+            if [ ${arrPortInfo[1]} == $1 ]
+            then
+                inited=1
+            fi
+        fi
     done
+    if [ $inited == 0 ]
+    then
+        range=$(expr $length \* 2)
+        scrcpyPort=$(expr 27183 + $range)
+        debugPort=$(expr $scrcpyPort + 1)
+        adb reverse tcp:$debugPort tcp:$debugPort
+        echo "$length|$1|$scrcpyPort|$debugPort" >> listPort.txt
+    fi
+}
+
+checkPortUsed () {
+    if lsof -Pi :$1 -sTCP:LISTEN -t >/dev/null
+    then
+        echo "running"
+    else
+        echo "not running"
+    fi  
 }

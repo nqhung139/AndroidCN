@@ -1,0 +1,1 @@
+Index|Serial_Number|Scrcpy_Port|Debug_Port

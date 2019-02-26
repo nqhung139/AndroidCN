@@ -150,9 +150,56 @@ connectToDevice () {
     forwardADBPort &
     sleep 1
     forwardScrcpyPort &
-    echo $serialNumber
     sleep 1
-    scrcpy -s $serialNumber --port 27183
+    startScrcpy $serialNumber
+}
+
+startScrcpy() {
+    listPort=$(cat "../server/listPort.txt")
+    IFS=$'\n'
+    arrLinePortInfo=($listPort)
+    inited=0
+    length=${#arrLinePortInfo[@]}
+    for key in ${!arrLinePortInfo[@]}
+    do
+        IFS=$'\n'
+        if [ $key != 0 ]
+        then
+            portInfo=${arrLinePortInfo[$key]}
+            IFS='|'
+            arrPortInfo=($portInfo)
+            serialNumber=${arrPortInfo[1]}
+            scrcpyPort=${arrPortInfo[2]}
+            debugPort=${arrPortInfo[3]}
+            if [ ${arrPortInfo[1]} == $1 ]
+            then
+                sshStart $scrcpyPort "-R" &
+                sleep 1
+                sshStart $debugPort "-R" &
+                sleep 1
+                echo debug port is $debugPort
+                echo "scrcpy -s $serialNumber --port $scrcpyPort"
+                scrcpy -s $serialNumber --port $scrcpyPort
+            fi
+        fi
+    done
+}
+
+sshStart() {
+    serverInfo=$(cat '../server/server.txt')
+    IFS=$'\n'
+    arrLine=($serverInfo)
+
+    for key in ${!arrLine[@]}
+    do
+        value=${arrLine[$key]}
+        nextValue=${arrLine[$(expr $key + 1)]}
+        if [ $value == "// IP" ]
+        then
+        echo "sshpass -pAbc123456 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue"
+            sshpass -pAbc123456 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue
+        fi
+    done
 }
 
 killallProgressInBackground () {
@@ -210,7 +257,7 @@ forwardADBPort () {
         nextValue=${arrLine[$(expr $key + 1)]}
         if [ $value == "// IP" ]
         then
-            sshpass -pAbc123456 ssh -CN -L5037:localhost:5037 "Vu Hoang Ha"@$nextValue
+            sshStart 5037 "-L"
         fi
     done
 }
@@ -223,19 +270,7 @@ forwardScrcpyPort (){
         exit 0
     fi
 
-    serverInfo=$(cat '../server/server.txt')
-    IFS=$'\n'
-    arrLine=($serverInfo)
-
-    for key in ${!arrLine[@]}
-    do
-        value=${arrLine[$key]}
-        nextValue=${arrLine[$(expr $key + 1)]}
-        if [ $value == "// IP" ]
-        then
-            sshpass -pAbc123456 ssh -CN -R27183:localhost:27183 "Vu Hoang Ha"@$nextValue
-        fi
-    done
+    sshStart 27183 "-R"
 }
 
 checkPortUsed () {

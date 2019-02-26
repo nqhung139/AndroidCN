@@ -1,6 +1,7 @@
 #!/bin/bash
 
 . func.h
+
 while [ 1 == 1 ] 
 do
     getVersionAdb
@@ -8,5 +9,5 @@ do
     getListDevices
 
     sleep 3
-    echo 'puck'
+    echo 'reload server'
 done
