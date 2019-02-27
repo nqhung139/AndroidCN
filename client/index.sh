@@ -319,13 +319,10 @@ test () {
     echo $serverInfo
 }
 
-# checkServer
-# checkBrew
-# checkADB
-# checkScrCpy
-# checkSSHPass
+checkServer
+checkBrew
+checkADB
+checkScrCpy
+checkSSHPass
 
-# connectToDevice
-
-test
-
+connectToDevice
