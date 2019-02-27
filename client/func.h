@@ -312,3 +312,8 @@ checkString () {
         echo 0;
     fi
 }
+
+test () {
+    serverInfo=$(cat '../server/server.txt')
+    echo $serverInfo
+}

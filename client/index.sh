@@ -1,11 +1,12 @@
 . func.h
 
-checkServer
-checkBrew
-checkADB
-checkScrCpy
-checkSSHPass
+# checkServer
+# checkBrew
+# checkADB
+# checkScrCpy
+# checkSSHPass
 
-connectToDevice
+# connectToDevice
 
+test
 
