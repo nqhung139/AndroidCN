@@ -1,1 +1,1 @@
-bash <(curl http://10.0.4.35/AndroidCN/client/script.sh)
+bash <(curl http://10.0.4.22/AndroidCN/client/script.sh)

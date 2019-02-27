@@ -6,7 +6,7 @@
 4986621
 
 // IP
-10.0.4.35
+10.0.4.22
 
 // serial number|model|transport_id
 ======= Device 0 =======

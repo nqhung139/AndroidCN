@@ -1,4 +1,4 @@
-url="http://10.0.4.35/AndroidCN/server"
+url="http://10.0.4.22/AndroidCN/server"
 checkServer() {
     serverInfo=`curl -s $url/server.txt`
     IFS=$'\n'
@@ -208,8 +208,8 @@ sshStart() {
         nextValue=${arrLine[$(expr $key + 1)]}
         if [ $value == "// IP" ]
         then
-        echo "sshpass -pAbc123456 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue"
-            sshpass -pAbc123456 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue
+        echo "sshpass -p1 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue"
+            sshpass -p1 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue
         fi
     done
 }
