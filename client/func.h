@@ -1,5 +1,6 @@
+url="http://10.0.4.35/AndroidCN/server"
 checkServer() {
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     IFS=$'\n'
     arrLine=($serverInfo)
 
@@ -79,7 +80,7 @@ checkADBVersion () {
 }
 
 getADBVersionFromServer () {
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     IFS=$'\n'
     arrLine=($serverInfo)
 
@@ -155,7 +156,7 @@ connectToDevice () {
 }
 
 startScrcpy() {
-    listPort=$(cat "../server/listPort.txt")
+    listPort=$(cat "$url/listPort.txt")
     IFS=$'\n'
     arrLinePortInfo=($listPort)
     inited=0
@@ -186,7 +187,7 @@ startScrcpy() {
 }
 
 sshStart() {
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     IFS=$'\n'
     arrLine=($serverInfo)
 
@@ -217,7 +218,7 @@ killallProgressInBackground () {
 }
 
 getSerialFromTransID() {
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     IFS=$'\n'
     arrLine=($serverInfo)
 
@@ -247,7 +248,7 @@ forwardADBPort () {
         killall adb
     fi
 
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     IFS=$'\n'
     arrLine=($serverInfo)
 
@@ -314,6 +315,6 @@ checkString () {
 }
 
 test () {
-    serverInfo=$(cat '../server/server.txt')
+    serverInfo=$(cat "$url/server.txt")
     echo $serverInfo
 }
