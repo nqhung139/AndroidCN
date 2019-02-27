@@ -4,7 +4,10 @@ remote android via ssh in local network
 
 # Run on Server
 
-run ./index.sh when new connected devices
+run
+./index.sh &
+(& to open new terminal in background)
+when new connected devices
 
 # Run on Client
 

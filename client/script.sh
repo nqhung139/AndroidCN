@@ -208,14 +208,14 @@ sshStart() {
         nextValue=${arrLine[$(expr $key + 1)]}
         if [ $value == "// IP" ]
         then
-        echo "sshpass -p1 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue"
-            sshpass -p1 ssh -CN "$2"$1:localhost:$1 "Vu Hoang Ha"@$nextValue
+        echo "sshpass -p1 ssh -CN "$2"$1:localhost:$1 admin@$nextValue"
+            sshpass -p1 ssh -CN "$2"$1:localhost:$1 admin@$nextValue
         fi
     done
 }
 
 killallProgressInBackground () {
-    puck=$(ps -eaf | grep "Vu Hoang Ha")
+    puck=$(ps -eaf | grep admin)
     IFS=$'\n'
     for i in ${puck[@]}
     do
