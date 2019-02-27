@@ -2,10 +2,12 @@
 
 remote android via ssh in local network
 
+# Run on Server
+
+run ./index.sh when new connected devices
+
 # Run on Client
 
-cd client
-chmod +x index.sh
-./index.sh
+bash <(curl http://10.0.4.35/AndroidCN/client/script.sh)
 
-remote android via ssh in local network
+=> change URL

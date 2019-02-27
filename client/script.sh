@@ -5,6 +5,7 @@ checkServer() {
     arrLine=($serverInfo)
 
     deviceInfoIndex=-1
+    hasDevice=0
     for key in ${!arrLine[@]}
     do
         value=${arrLine[$key]}
@@ -22,11 +23,21 @@ checkServer() {
 
         if [ $deviceInfoIndex != "-1" ]
         then
+            if [ $value != "" ] && [ $value != "// serial number|model|transport_id" ]
+            then
+                hasDevice=1
+            fi
             echo $value
         fi
     done
 
-    echo -e "\n"
+    if [ $hasDevice == 0 ]
+    then
+        echo "\n No devices connected"
+        exit 1
+    fi
+
+    echo "\n"
 }
 
 checkBrew() {
@@ -142,7 +153,7 @@ checkScrCpy() {
 }
 
 connectToDevice () {
-    echo -e '\n Enter serial "transport_id" connect : '
+    echo "\n Enter serial \"transport_id\" connect : "
     read transportId
     serialNumber=$(getSerialFromTransID $transportId)
 
