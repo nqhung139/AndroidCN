@@ -2,12 +2,12 @@
 
 . func.h
 
-# while [ 1 == 1 ] 
-# do
+while [ 1 == 1 ] 
+do
     getVersionAdb
     getIPAddress
     getListDevices
 
     sleep 3
     echo 'reload server'
-# done
+done
