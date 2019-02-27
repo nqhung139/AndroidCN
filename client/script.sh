@@ -17,7 +17,7 @@ checkServer() {
 
         if [ $value == "// serial number|model|transport_id" ]
         then
-            echo "List devices connected with server is : \n"
+            echo -e "List devices connected with server is : \n"
             deviceInfoIndex=$key
         fi
 
@@ -33,11 +33,11 @@ checkServer() {
 
     if [ $hasDevice == 0 ]
     then
-        echo "\n No devices connected"
+        echo -e "\n No devices connected"
         exit 1
     fi
 
-    echo "\n"
+    echo -e "\n"
 }
 
 checkBrew() {
@@ -153,7 +153,7 @@ checkScrCpy() {
 }
 
 connectToDevice () {
-    echo "\n Enter serial \"transport_id\" connect : "
+    echo -e "\n Enter serial \"transport_id\" connect : "
     read transportId
     serialNumber=$(getSerialFromTransID $transportId)
 
@@ -310,10 +310,10 @@ checkCommandInstalled () {
 checkIP(){
     while ! ping -c1 $1 &>/dev/null
     do 
-        echo "Ping Fail - `date`\n"
+        echo -e "Ping Fail - `date`\n"
         exit 0
     done
-    echo "Host Found - `date`\n"
+    echo -e "Host Found - `date`\n"
 }
 
 checkString () {
